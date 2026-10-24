@@ -1,0 +1,2 @@
+import { createFileRoute } from "@tanstack/react-router";
+export const Route = createFileRoute("/api/public/device/status")({ server: { handlers: { POST: async ({ request }) => { const { status } = await import("@/lib/android-server.server"); return status(request, false); } } } });

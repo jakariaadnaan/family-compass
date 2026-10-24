@@ -1,0 +1,2 @@
+import { createFileRoute } from "@tanstack/react-router";
+export const Route = createFileRoute("/api/public/device/enroll")({ server: { handlers: { POST: async ({ request }) => { const { enroll } = await import("@/lib/android-server.server"); return enroll(request); } } } });

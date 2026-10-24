@@ -12,11 +12,15 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AuthenticatedAndroidRouteImport } from './routes/_authenticated/android'
 import { Route as AuthenticatedAuditRouteImport } from './routes/_authenticated/audit'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
 import { Route as AuthenticatedDevicesIndexRouteImport } from './routes/_authenticated/devices.index'
 import { Route as AuthenticatedDevicesDeviceIdRouteImport } from './routes/_authenticated/devices.$deviceId'
+import { Route as ApiPublicDeviceDisconnectRouteImport } from './routes/api/public/device/disconnect'
+import { Route as ApiPublicDeviceEnrollRouteImport } from './routes/api/public/device/enroll'
+import { Route as ApiPublicDeviceStatusRouteImport } from './routes/api/public/device/status'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -31,6 +35,11 @@ const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedAndroidRoute = AuthenticatedAndroidRouteImport.update({
+  id: '/android',
+  path: '/android',
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedAuditRoute = AuthenticatedAuditRouteImport.update({
   id: '/audit',
@@ -59,71 +68,114 @@ const AuthenticatedDevicesDeviceIdRoute =
     path: '/devices/$deviceId',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const ApiPublicDeviceDisconnectRoute =
+  ApiPublicDeviceDisconnectRouteImport.update({
+    id: '/api/public/device/disconnect',
+    path: '/api/public/device/disconnect',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiPublicDeviceEnrollRoute = ApiPublicDeviceEnrollRouteImport.update({
+  id: '/api/public/device/enroll',
+  path: '/api/public/device/enroll',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicDeviceStatusRoute = ApiPublicDeviceStatusRouteImport.update({
+  id: '/api/public/device/status',
+  path: '/api/public/device/status',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/android': typeof AuthenticatedAndroidRoute
   '/audit': typeof AuthenticatedAuditRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/settings': typeof AuthenticatedSettingsRoute
   '/devices/$deviceId': typeof AuthenticatedDevicesDeviceIdRoute
   '/devices/': typeof AuthenticatedDevicesIndexRoute
+  '/api/public/device/disconnect': typeof ApiPublicDeviceDisconnectRoute
+  '/api/public/device/enroll': typeof ApiPublicDeviceEnrollRoute
+  '/api/public/device/status': typeof ApiPublicDeviceStatusRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/android': typeof AuthenticatedAndroidRoute
   '/audit': typeof AuthenticatedAuditRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/settings': typeof AuthenticatedSettingsRoute
   '/devices/$deviceId': typeof AuthenticatedDevicesDeviceIdRoute
   '/devices': typeof AuthenticatedDevicesIndexRoute
+  '/api/public/device/disconnect': typeof ApiPublicDeviceDisconnectRoute
+  '/api/public/device/enroll': typeof ApiPublicDeviceEnrollRoute
+  '/api/public/device/status': typeof ApiPublicDeviceStatusRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
+  '/_authenticated/android': typeof AuthenticatedAndroidRoute
   '/_authenticated/audit': typeof AuthenticatedAuditRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/settings': typeof AuthenticatedSettingsRoute
   '/_authenticated/devices/$deviceId': typeof AuthenticatedDevicesDeviceIdRoute
   '/_authenticated/devices/': typeof AuthenticatedDevicesIndexRoute
+  '/api/public/device/disconnect': typeof ApiPublicDeviceDisconnectRoute
+  '/api/public/device/enroll': typeof ApiPublicDeviceEnrollRoute
+  '/api/public/device/status': typeof ApiPublicDeviceStatusRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/auth'
+    | '/android'
     | '/audit'
     | '/dashboard'
     | '/settings'
     | '/devices/$deviceId'
     | '/devices/'
+    | '/api/public/device/disconnect'
+    | '/api/public/device/enroll'
+    | '/api/public/device/status'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/auth'
+    | '/android'
     | '/audit'
     | '/dashboard'
     | '/settings'
     | '/devices/$deviceId'
     | '/devices'
+    | '/api/public/device/disconnect'
+    | '/api/public/device/enroll'
+    | '/api/public/device/status'
   id:
     | '__root__'
     | '/'
     | '/_authenticated'
     | '/auth'
+    | '/_authenticated/android'
     | '/_authenticated/audit'
     | '/_authenticated/dashboard'
     | '/_authenticated/settings'
     | '/_authenticated/devices/$deviceId'
     | '/_authenticated/devices/'
+    | '/api/public/device/disconnect'
+    | '/api/public/device/enroll'
+    | '/api/public/device/status'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AuthRoute: typeof AuthRoute
+  ApiPublicDeviceDisconnectRoute: typeof ApiPublicDeviceDisconnectRoute
+  ApiPublicDeviceEnrollRoute: typeof ApiPublicDeviceEnrollRoute
+  ApiPublicDeviceStatusRoute: typeof ApiPublicDeviceStatusRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -148,6 +200,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/auth'
       preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/android': {
+      id: '/_authenticated/android'
+      path: '/android'
+      fullPath: '/android'
+      preLoaderRoute: typeof AuthenticatedAndroidRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/audit': {
       id: '/_authenticated/audit'
@@ -184,10 +243,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDevicesDeviceIdRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/api/public/device/disconnect': {
+      id: '/api/public/device/disconnect'
+      path: '/api/public/device/disconnect'
+      fullPath: '/api/public/device/disconnect'
+      preLoaderRoute: typeof ApiPublicDeviceDisconnectRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/device/enroll': {
+      id: '/api/public/device/enroll'
+      path: '/api/public/device/enroll'
+      fullPath: '/api/public/device/enroll'
+      preLoaderRoute: typeof ApiPublicDeviceEnrollRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/device/status': {
+      id: '/api/public/device/status'
+      path: '/api/public/device/status'
+      fullPath: '/api/public/device/status'
+      preLoaderRoute: typeof ApiPublicDeviceStatusRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAndroidRoute: typeof AuthenticatedAndroidRoute
   AuthenticatedAuditRoute: typeof AuthenticatedAuditRoute
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
@@ -196,6 +277,7 @@ interface AuthenticatedRouteRouteChildren {
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAndroidRoute: AuthenticatedAndroidRoute,
   AuthenticatedAuditRoute: AuthenticatedAuditRoute,
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
@@ -210,6 +292,9 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AuthRoute: AuthRoute,
+  ApiPublicDeviceDisconnectRoute: ApiPublicDeviceDisconnectRoute,
+  ApiPublicDeviceEnrollRoute: ApiPublicDeviceEnrollRoute,
+  ApiPublicDeviceStatusRoute: ApiPublicDeviceStatusRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

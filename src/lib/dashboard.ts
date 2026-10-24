@@ -14,6 +14,7 @@ export function selectDevices<T extends DeviceItem>(devices: T[], search: string
 }
 
 export const activityLabels: Record<string, string> = {
+  "device.enrolled": "Android device paired",
   "pairing_code.created": "Pairing code created",
   "device.updated": "Device updated",
   "device.removed": "Device removed",
