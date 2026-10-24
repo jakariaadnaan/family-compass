@@ -12,5 +12,5 @@ describe("device selection", () => {
   it("separates offline devices from devices never synced", () => { expect(selectDevices(devices, "", "offline", "newest", now).map(d => d.name)).toEqual(["Adnan's phone"]); });
   it("filters online devices", () => { expect(selectDevices(devices, "", "online", "newest", now).map(d => d.name)).toEqual(["Rafi's phone"]); });
   it("sorts newest sync first with unsynced devices last", () => { expect(selectDevices(devices, "", "all", "lastSeen", now).map(d => d.name)).toEqual(["Rafi's phone", "Adnan's phone", "Tablet"]); });
-  it("sorts by name without mutating the input", () => { expect(selectDevices(devices, "", "all", "name", now).map(d => d.name)).toEqual(["Adnan's phone", "Rafi's phone", "Tablet"]); expect(devices[0].name).toBe("Rafi's phone"); });
+  it("sorts by name without mutating the input", () => { expect(selectDevices(devices, "", "all", "name", now).map(d => d.name)).toEqual(["Adnan's phone", "Rafi's phone", "Tablet"]); expect(devices[0]?.name).toBe("Rafi's phone"); });
 });
