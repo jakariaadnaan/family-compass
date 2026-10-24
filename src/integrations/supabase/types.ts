@@ -38,6 +38,32 @@ export type Database = {
         }
         Relationships: []
       }
+      device_credentials: {
+        Row: {
+          device_id: string
+          expires_at: string
+          token_hash: string
+        }
+        Insert: {
+          device_id: string
+          expires_at?: string
+          token_hash: string
+        }
+        Update: {
+          device_id?: string
+          expires_at?: string
+          token_hash?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "device_credentials_device_id_fkey"
+            columns: ["device_id"]
+            isOneToOne: true
+            referencedRelation: "devices"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       device_pairing_codes: {
         Row: {
           code_hash: string
@@ -101,6 +127,21 @@ export type Database = {
           platform?: string
           status?: string
           usage_consent?: boolean
+        }
+        Relationships: []
+      }
+      enrollment_rate_limit: {
+        Row: {
+          attempts: number
+          minute: string
+        }
+        Insert: {
+          attempts?: number
+          minute: string
+        }
+        Update: {
+          attempts?: number
+          minute?: string
         }
         Relationships: []
       }
@@ -179,12 +220,20 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      android_status: {
+        Args: { _disconnect?: boolean; _token_hash: string }
+        Returns: Json
+      }
       create_pairing_code: {
         Args: { _device_name: string }
         Returns: {
           code: string
           expires_at: string
         }[]
+      }
+      enroll_android: {
+        Args: { _code: string; _token_hash: string }
+        Returns: Json
       }
     }
     Enums: {
