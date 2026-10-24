@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { toast } from "sonner";
-import { Plus, Copy, KeyRound, RefreshCw } from "lucide-react";
+import { Plus, Copy, KeyRound, RefreshCw, Download } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { devicesQuery, pendingCodesQuery } from "@/lib/devices";
 import { DeviceCollection } from "@/components/DeviceCollection";
@@ -75,6 +75,8 @@ function DevicesPage() {
           </DialogContent>
         </Dialog></div>
       </div>
+
+      <div className="mt-6 flex flex-wrap items-center justify-between gap-3 border-y py-4"><p className="text-sm text-muted-foreground">Haven for Android · Native test app</p><Button asChild variant="outline" size="sm"><Link to="/android"><Download /> Get Android app</Link></Button></div>
 
       {codes && codes.length > 0 && (
         <div className="mt-6 rounded-lg border border-dashed bg-card p-4">

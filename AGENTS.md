@@ -15,3 +15,6 @@
 - Audit rows are written by DB triggers/functions only (no client INSERT grant). Why: users must not forge their own log.
 - Signed-in pages live under `src/routes/_authenticated/` with the app shell in its `route.tsx`. Why: single auth gate and shared nav.
 - Device search, status filtering and sorting use the shared DeviceCollection and pure selection utility. Why: overview and device pages must apply identical selection behavior without altering stored records.
+- The native Android app lives in `android/` and is built by the GitHub Actions APK workflow; keep it independent of the web toolchain. Why: users need an online native build without installing Android Studio.
+- External device APIs use atomic credential-verifying SQL functions through a publishable server client; no device-ID authorization or client-chosen owner. Why: enrollment, revocation and status updates must validate the device credential inside the same transaction.
+- Android credentials are AES-GCM encrypted with Android Keystore and excluded from backups; automatic status work is opt-in on the phone. Why: minimize credential exposure and preserve explicit consent.

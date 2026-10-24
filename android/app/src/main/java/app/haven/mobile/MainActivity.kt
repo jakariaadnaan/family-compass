@@ -24,7 +24,7 @@ import java.util.Date
 private val Light = lightColorScheme(primary = Color(0xFF075E59), onPrimary = Color.White, secondary = Color(0xFF865C20), secondaryContainer = Color(0xFFFFE5B7), background = Color(0xFFF5F8F8), surface = Color.White, surfaceVariant = Color(0xFFE7F0EF), onSurface = Color(0xFF12332F))
 private val Dark = darkColorScheme(primary = Color(0xFF82D5C9), secondary = Color(0xFFFFC46B), background = Color(0xFF0D211F), surface = Color(0xFF152C29), surfaceVariant = Color(0xFF23443F), onSurface = Color(0xFFE4F3F0))
 class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) { super.onCreate(savedInstanceState); setContent { MaterialTheme(colorScheme = if (isSystemInDarkTheme()) Dark else Light) { HavenApp() } } }
+    override fun onCreate(savedInstanceState: Bundle?) { super.onCreate(savedInstanceState); setContent { MaterialTheme(colorScheme = if (isSystemInDarkTheme()) Dark else Light, typography = HavenTypography) { HavenApp() } } }
 }
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable fun HavenApp(vm: HavenViewModel = viewModel()) {
