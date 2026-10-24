@@ -37,7 +37,7 @@ function DevicePage() {
 
   async function remove() {
     const { error } = await supabase.from("devices").delete().eq("id", deviceId);
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     toast.success("Device removed and its data deleted");
     qc.invalidateQueries();
     navigate({ to: "/devices" });

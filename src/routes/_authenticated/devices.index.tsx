@@ -31,8 +31,8 @@ function DevicesPage() {
     setBusy(true);
     const { data, error } = await supabase.rpc("create_pairing_code", { _device_name: name });
     setBusy(false);
-    if (error) return toast.error(error.message);
-    setResult(data[0]);
+    if (error) { toast.error(error.message); return; }
+    setResult(data?.[0] ?? null);
     qc.invalidateQueries({ queryKey: ["pairing-codes"] });
     qc.invalidateQueries({ queryKey: ["audit"] });
   }
