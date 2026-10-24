@@ -14,13 +14,178 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      audit_logs: {
+        Row: {
+          action: string
+          created_at: string
+          id: number
+          target: string | null
+          user_id: string
+        }
+        Insert: {
+          action: string
+          created_at?: string
+          id?: number
+          target?: string | null
+          user_id: string
+        }
+        Update: {
+          action?: string
+          created_at?: string
+          id?: number
+          target?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      device_pairing_codes: {
+        Row: {
+          code_hash: string
+          created_at: string
+          device_name: string
+          expires_at: string
+          id: string
+          owner_id: string
+          used_at: string | null
+        }
+        Insert: {
+          code_hash: string
+          created_at?: string
+          device_name: string
+          expires_at: string
+          id?: string
+          owner_id: string
+          used_at?: string | null
+        }
+        Update: {
+          code_hash?: string
+          created_at?: string
+          device_name?: string
+          expires_at?: string
+          id?: string
+          owner_id?: string
+          used_at?: string | null
+        }
+        Relationships: []
+      }
+      devices: {
+        Row: {
+          created_at: string
+          id: string
+          last_seen_at: string | null
+          location_consent: boolean
+          name: string
+          owner_id: string
+          platform: string
+          status: string
+          usage_consent: boolean
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          last_seen_at?: string | null
+          location_consent?: boolean
+          name: string
+          owner_id: string
+          platform?: string
+          status?: string
+          usage_consent?: boolean
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          last_seen_at?: string | null
+          location_consent?: boolean
+          name?: string
+          owner_id?: string
+          platform?: string
+          status?: string
+          usage_consent?: boolean
+        }
+        Relationships: []
+      }
+      location_records: {
+        Row: {
+          accuracy_m: number | null
+          device_id: string
+          id: number
+          lat: number
+          lng: number
+          recorded_at: string
+        }
+        Insert: {
+          accuracy_m?: number | null
+          device_id: string
+          id?: number
+          lat: number
+          lng: number
+          recorded_at?: string
+        }
+        Update: {
+          accuracy_m?: number | null
+          device_id?: string
+          id?: number
+          lat?: number
+          lng?: number
+          recorded_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "location_records_device_id_fkey"
+            columns: ["device_id"]
+            isOneToOne: false
+            referencedRelation: "devices"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      usage_summaries: {
+        Row: {
+          app_label: string | null
+          day: string
+          device_id: string
+          foreground_minutes: number
+          id: number
+          package_name: string
+        }
+        Insert: {
+          app_label?: string | null
+          day: string
+          device_id: string
+          foreground_minutes?: number
+          id?: number
+          package_name: string
+        }
+        Update: {
+          app_label?: string | null
+          day?: string
+          device_id?: string
+          foreground_minutes?: number
+          id?: number
+          package_name?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "usage_summaries_device_id_fkey"
+            columns: ["device_id"]
+            isOneToOne: false
+            referencedRelation: "devices"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      create_pairing_code: {
+        Args: { _device_name: string }
+        Returns: {
+          code: string
+          expires_at: string
+        }[]
+      }
     }
     Enums: {
       [_ in never]: never
