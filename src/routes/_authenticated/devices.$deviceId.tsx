@@ -1,3 +1,4 @@
+import { pageMeta } from "@/lib/dashboard";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
@@ -13,7 +14,7 @@ import {
 } from "@/components/ui/alert-dialog";
 
 export const Route = createFileRoute("/_authenticated/devices/$deviceId")({
-  head: () => ({ meta: [{ title: "Device — Haven" }] }),
+  head: () => pageMeta("Device details", "Review device status, shared locations and usage records in Haven."),
   component: DevicePage,
 });
 
@@ -43,10 +44,10 @@ function DevicePage() {
     navigate({ to: "/devices" });
   }
 
-  if (isLoading) return <Skeleton className="h-60 rounded-xl" />;
+  if (isLoading) return <Skeleton className="h-60 rounded-lg" />;
   if (!data?.device)
     return (
-      <div className="rounded-xl border bg-card p-10 text-center">
+      <div className="rounded-lg border bg-card p-10 text-center">
         <p className="font-medium">Device not found</p>
         <p className="mt-1 text-sm text-muted-foreground">It may have been removed, or it isn't paired to your account.</p>
         <Button asChild variant="outline" className="mt-4"><Link to="/devices">Back to devices</Link></Button>
@@ -74,7 +75,7 @@ function DevicePage() {
       <p className="mt-2 text-xs text-muted-foreground">Sharing is controlled on the phone by its user. You can't turn it on from here.</p>
 
       <div className="mt-8 grid gap-4 lg:grid-cols-2">
-        <section className="rounded-xl border bg-card p-5">
+        <section className="rounded-lg border bg-card p-5">
           <h2 className="flex items-center gap-2 font-semibold"><MapPin className="h-4 w-4 text-primary" /> Recent locations</h2>
           {data.locations.length === 0 ? (
             <p className="mt-3 text-sm text-muted-foreground">No location shared yet.</p>
@@ -89,7 +90,7 @@ function DevicePage() {
             </ul>
           )}
         </section>
-        <section className="rounded-xl border bg-card p-5">
+        <section className="rounded-lg border bg-card p-5">
           <h2 className="flex items-center gap-2 font-semibold"><BarChart3 className="h-4 w-4 text-primary" /> App usage</h2>
           {data.usage.length === 0 ? (
             <p className="mt-3 text-sm text-muted-foreground">No usage summaries yet. The phone user must grant Usage Access.</p>
@@ -106,7 +107,7 @@ function DevicePage() {
         </section>
       </div>
 
-      <section className="mt-8 rounded-xl border border-destructive/30 bg-card p-5">
+      <section className="mt-8 rounded-lg border border-destructive/30 bg-card p-5">
         <h2 className="font-semibold">Remove device</h2>
         <p className="mt-1 text-sm text-muted-foreground">Revokes access and permanently deletes its location and usage history.</p>
         <AlertDialog>

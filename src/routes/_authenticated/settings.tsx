@@ -1,3 +1,4 @@
+import { pageMeta } from "@/lib/dashboard";
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -8,7 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 export const Route = createFileRoute("/_authenticated/settings")({
-  head: () => ({ meta: [{ title: "Settings — Haven" }] }),
+  head: () => pageMeta("Settings", "Manage your Haven account security and download your device data."),
   component: SettingsPage,
 });
 
@@ -49,7 +50,7 @@ function SettingsPage() {
         <p className="mt-1 text-muted-foreground">Signed in as {user.email}</p>
       </div>
 
-      <section className="rounded-xl border bg-card p-5">
+      <section className="border-t py-6">
         <h2 className="font-semibold">Change password</h2>
         <form onSubmit={changePassword} className="mt-4 grid max-w-sm gap-3">
           <div className="space-y-1.5"><Label htmlFor="cur">Current password</Label><Input id="cur" type="password" required value={current} onChange={(e) => setCurrent(e.target.value)} /></div>
@@ -58,7 +59,7 @@ function SettingsPage() {
         </form>
       </section>
 
-      <section className="rounded-xl border bg-card p-5">
+      <section className="border-t py-6">
         <h2 className="font-semibold">Your data</h2>
         <p className="mt-1 text-sm text-muted-foreground">Download everything stored about your account and devices.</p>
         <Button variant="outline" className="mt-4" onClick={exportData}><Download className="h-4 w-4" /> Export as JSON</Button>
