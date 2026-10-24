@@ -14,3 +14,4 @@
 - Pairing codes are created only via the `create_pairing_code` SQL function, which stores a SHA-256 hash and returns the plaintext once. Why: codes are credentials.
 - Audit rows are written by DB triggers/functions only (no client INSERT grant). Why: users must not forge their own log.
 - Signed-in pages live under `src/routes/_authenticated/` with the app shell in its `route.tsx`. Why: single auth gate and shared nav.
+- Device search, status filtering and sorting use the shared DeviceCollection and pure selection utility. Why: overview and device pages must apply identical selection behavior without altering stored records.
