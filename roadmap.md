@@ -2,8 +2,10 @@
 - [x] Dashboard upgrade: professional layout, device search/filter/sort, refresh, consent overview, real account activity; authenticated pairing/read-back and mobile/desktop verification
 - [x] M1 Dashboard: sign-in, overview, devices, pairing codes, device detail, activity log, settings/export
 - [x] M2 Phone app approach — native Android APK built online with GitHub
-- [ ] Android milestone: native consent-first app, encrypted pairing credentials, opt-in status sync, disconnect, GitHub APK workflow and setup page; verify build and API/device isolation
-- [ ] M3 Device-side pairing endpoint + heartbeat
+- [x] Android source milestone: native consent-first app, encrypted pairing credentials, opt-in status sync, disconnect, GitHub APK workflow and setup/download page; APK assembled and 4 Android unit tests passed
+- [x] M3 Device-side pairing endpoint + heartbeat — real-account API enrollment/read-back, one-use code, device-ID denial and token revocation verified
+- [ ] Android real-phone acceptance — awaits published dashboard and installation on user's phone; native layout, Keystore and background behavior require device testing
+- [ ] GitHub hosted build verification — awaits user connecting repository through Lovable GitHub settings; identical build commands passed in online sandbox
 - [ ] M4 Location map + retention
 - [ ] M5 Usage charts
 - [ ] M6 Alerts
