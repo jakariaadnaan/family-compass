@@ -37,6 +37,16 @@ export const auditQuery = queryOptions({
   },
 });
 
+export const usageQuery = queryOptions({
+  queryKey: ["usage-summaries"],
+  queryFn: async () => {
+    const since = new Date(Date.now() - 6 * 86400000).toISOString().slice(0, 10);
+    const { data, error } = await supabase.from("usage_summaries").select("*").gte("day", since);
+    if (error) throw error;
+    return data;
+  },
+});
+
 /** Online = heartbeat within the last 30 minutes (WorkManager runs ~every 15 min). */
 export const ONLINE_WINDOW_MS = 30 * 60 * 1000;
 
