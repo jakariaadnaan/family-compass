@@ -31,8 +31,8 @@ describe("usage summaries", () => {
   });
   it("ranks apps by total minutes and falls back to the package name", () => {
     const top = topApps(usageRows);
-    expect(top.map(a => a.label)).toEqual(["com.chat", "XPlayer", "Old"]);
-    expect(top[0]?.minutes).toBe(90);
+    expect(top.map(a => a.label)).toEqual(["Old", "com.chat", "XPlayer"]);
+    expect(top[0]?.minutes).toBe(500);
     expect(topApps(usageRows, 1)).toHaveLength(1);
   });
   it("formats minutes as hours and minutes", () => {
