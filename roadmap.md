@@ -1,7 +1,7 @@
 # Roadmap
 - [x] Dashboard redesign: grouped light sidebar, device spotlight card, colorful stat cards, 7-day screen time chart, most-used-apps ranking (real usage_summaries data, honest empty states)
 - [x] Dashboard upgrade: professional layout, device search/filter/sort, refresh, consent overview, real account activity; authenticated pairing/read-back and mobile/desktop verification
-- [ ] Publish dashboard — phone app needs a public HTTPS address for pairing; user asked for the fix
+- [x] Publish dashboard — publishing requested; expected address https://family-device-compass.lovable.app for phone pairing
 - [x] M1 Dashboard: sign-in, overview, devices, pairing codes, device detail, activity log, settings/export
 - [x] M2 Phone app approach — native Android APK built online with GitHub
 - [x] Android source milestone: native consent-first app, encrypted pairing credentials, opt-in status sync, disconnect, GitHub APK workflow and setup/download page; APK assembled and 4 Android unit tests passed
