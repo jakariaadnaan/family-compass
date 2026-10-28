@@ -1,6 +1,6 @@
 import { createFileRoute, Link, Outlet, redirect, useNavigate, useRouterState } from "@tanstack/react-router";
 import { useQueryClient } from "@tanstack/react-query";
-import { LayoutDashboard, Smartphone, ScrollText, Settings, LogOut, ShieldCheck, ChevronRight, LockKeyhole, TabletSmartphone } from "lucide-react";
+import { LayoutDashboard, Smartphone, ScrollText, Settings, LogOut, ShieldCheck, ChevronRight, LockKeyhole, TabletSmartphone, type LucideIcon } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 
@@ -24,7 +24,7 @@ const navGroups = [
     { to: "/settings", label: "Settings", icon: Settings },
   ] },
 ] as const;
-const nav = navGroups.flatMap(g => g.items);
+const nav: { to: string; label: string; icon: LucideIcon }[] = navGroups.flatMap(g => g.items);
 function AppShell() {
   const { user } = Route.useRouteContext();
   const qc = useQueryClient();
