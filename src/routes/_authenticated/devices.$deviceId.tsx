@@ -43,13 +43,15 @@ function DevicePage() {
     queryKey: ["device", deviceId],
     queryFn: async () => {
       const since = new Date(Date.now() - 30 * 86400000).toISOString().slice(0, 10);
-      const [dev, locs, usage, audit] = await Promise.all([
+      const [dev, locs, usage] = await Promise.all([
         supabase.from("devices").select("*").eq("id", deviceId).maybeSingle(),
         supabase.from("location_records").select("*").eq("device_id", deviceId).order("recorded_at", { ascending: false }).limit(50),
         supabase.from("usage_summaries").select("day,package_name,app_label,foreground_minutes").eq("device_id", deviceId).gte("day", since).order("day", { ascending: false }).limit(1000),
-        supabase.from("audit_logs").select("id,action,target,created_at").eq("target", deviceId).order("created_at", { ascending: false }).limit(30),
       ]);
       if (dev.error) throw dev.error;
+      const audit = dev.data
+        ? await supabase.from("audit_logs").select("id,action,target,created_at").eq("target", dev.data.name).order("created_at", { ascending: false }).limit(30)
+        : { data: [] };
       return { device: dev.data, locations: locs.data ?? [], usage: usage.data ?? [], audit: audit.data ?? [] };
     },
   });
