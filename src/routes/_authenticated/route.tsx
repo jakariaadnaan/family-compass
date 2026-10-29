@@ -24,7 +24,8 @@ const navGroups = [
     { to: "/settings", label: "Settings", icon: Settings },
   ] },
 ] as const;
-const nav: { to: string; label: string; icon: LucideIcon }[] = navGroups.flatMap(g => [...g.items] as { to: string; label: string; icon: LucideIcon }[]);
+type NavItem = { to: string; label: string; icon: LucideIcon };
+const nav: NavItem[] = navGroups.flatMap<NavItem>(g => [...g.items]);
 function AppShell() {
   const { user } = Route.useRouteContext();
   const qc = useQueryClient();
