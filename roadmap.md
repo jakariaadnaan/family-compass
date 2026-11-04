@@ -1,5 +1,5 @@
 # Roadmap
-- [ ] Reference screenshot alignment: unified device sidebar, compact identity banner, four metrics, wide screen-time plot and paired lower panels; verify desktop/mobile.
+- [x] Reference screenshot alignment: unified device sidebar, compact identity banner, four metrics, wide screen-time plot and paired lower panels; real-account desktop/mobile layout and GPS navigation verified. No new phone collection features added.
 - [x] Dashboard redesign: grouped light sidebar, device spotlight card, colorful stat cards, 7-day screen time chart, most-used-apps ranking (real usage_summaries data, honest empty states)
 - [x] Dashboard upgrade: professional layout, device search/filter/sort, refresh, consent overview, real account activity; authenticated pairing/read-back and mobile/desktop verification
 - [x] Publish dashboard — publishing requested; expected address https://family-device-compass.lovable.app for phone pairing
