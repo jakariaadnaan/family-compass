@@ -65,7 +65,7 @@ function Dashboard() {
       <Button asChild variant="outline" size="sm"><Link to="/devices/$deviceId" params={{ deviceId: spotlight.id }}>Details <ArrowUpRight /></Link></Button>
     </section>}
 
-    <div className="mt-6 grid grid-cols-2 gap-3 xl:grid-cols-4">{stats.map((s, i) => { const tone = statTones[i % statTones.length] ?? statTones[0]; return <div key={s.label} className="relative min-w-0 overflow-hidden rounded-lg border bg-card p-4 shadow-soft sm:p-5">
+    <div className="mt-6 grid grid-cols-2 gap-3 xl:grid-cols-4">{stats.map((s, i) => { const tone = statTones[i % statTones.length] ?? { tile: "bg-secondary text-primary" }; return <div key={s.label} className="relative min-w-0 overflow-hidden rounded-lg border bg-card p-4 shadow-soft sm:p-5">
       <div className="relative flex items-center justify-between gap-2"><p className="text-xs font-medium text-muted-foreground">{s.label}</p><span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg ${tone.tile}`}><s.icon className="h-4 w-4" /></span></div>
       {isLoading || error ? <Skeleton className="relative mt-4 h-9 w-12" /> : <p className="relative mt-3 font-display text-2xl font-semibold tabular-nums">{s.value.toString().padStart(2, "0")}</p>}
       <p className="relative mt-2 text-[11px] text-muted-foreground">{s.note}</p>

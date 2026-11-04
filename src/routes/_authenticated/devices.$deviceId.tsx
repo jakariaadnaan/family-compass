@@ -20,7 +20,7 @@ import {
 
 export const Route = createFileRoute("/_authenticated/devices/$deviceId")({
   head: () => pageMeta("Device manager", "Screen time, shared locations, app usage, alerts and consent for one paired device in Haven."),
-  validateSearch: (search: Record<string, unknown>): { section: Tab } => ({ section: tabs.some(tab => tab.id === search.section) ? search.section as Tab : "overview" }),
+  validateSearch: (search: Record<string, unknown>): { section?: Tab } => ({ section: tabs.some(tab => tab.id === search["section"]) ? search["section"] as Tab : "overview" }),
   component: DevicePage,
 });
 
@@ -37,7 +37,7 @@ function DevicePage() {
   const { deviceId } = Route.useParams();
   const navigate = useNavigate();
   const qc = useQueryClient();
-  const { section: tab } = Route.useSearch();
+  const { section: tab = "overview" } = Route.useSearch();
   const [range, setRange] = useState<7 | 30>(7);
 
   const q = useQuery({
