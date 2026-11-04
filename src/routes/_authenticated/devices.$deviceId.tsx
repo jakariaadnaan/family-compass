@@ -3,7 +3,7 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { toast } from "sonner";
-import { Bar, BarChart, Cell, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { ScreenTimeChart } from "@/components/ScreenTimeChart";
 import {
   ArrowLeft, MapPin, Trash2, Smartphone, Clock3, Timer, Flame, ShieldCheck, ShieldX, RefreshCw,
   LayoutDashboard, AppWindow, Bell, History, Navigation, CalendarDays, type LucideIcon,
@@ -20,6 +20,7 @@ import {
 
 export const Route = createFileRoute("/_authenticated/devices/$deviceId")({
   head: () => pageMeta("Device manager", "Screen time, shared locations, app usage, alerts and consent for one paired device in Haven."),
+  validateSearch: (search: Record<string, unknown>): { section?: Tab } => ({ section: tabs.some(tab => tab.id === search["section"]) ? search["section"] as Tab : "overview" }),
   component: DevicePage,
 });
 
@@ -36,7 +37,7 @@ function DevicePage() {
   const { deviceId } = Route.useParams();
   const navigate = useNavigate();
   const qc = useQueryClient();
-  const [tab, setTab] = useState<Tab>("overview");
+  const { section: tab = "overview" } = Route.useSearch();
   const [range, setRange] = useState<7 | 30>(7);
 
   const q = useQuery({
@@ -64,10 +65,10 @@ function DevicePage() {
     navigate({ to: "/devices" });
   }
 
-  if (q.isLoading) return <div className="space-y-4"><Skeleton className="h-28 rounded-xl" /><Skeleton className="h-64 rounded-xl" /></div>;
+  if (q.isLoading) return <div className="space-y-4"><Skeleton className="h-28 rounded-lg" /><Skeleton className="h-64 rounded-lg" /></div>;
   if (!q.data?.device)
     return (
-      <div className="rounded-xl border bg-card p-10 text-center">
+      <div className="rounded-lg border bg-card p-10 text-center">
         <p className="font-medium">Device not found</p>
         <p className="mt-1 text-sm text-muted-foreground">It may have been removed, or it isn't paired to your account.</p>
         <Button asChild variant="outline" className="mt-4"><Link to="/devices">Back to devices</Link></Button>
@@ -83,7 +84,7 @@ function DevicePage() {
   const apps = topApps(inRange, 10);
   const maxApp = Math.max(1, ...apps.map(a => a.minutes));
   const last = locations[0];
-  const groups = [...new Set(tabs.map(t => t.group))];
+
 
   const stats = [
     { label: "Status", value: status === "online" ? "Online" : status === "offline" ? "Offline" : "Waiting", note: `Last seen ${timeAgo(d.last_seen_at)}`, icon: Smartphone, tone: "bg-primary/10 text-primary" },
@@ -99,42 +100,31 @@ function DevicePage() {
         <Button variant="outline" size="icon" aria-label="Refresh" onClick={() => q.refetch()}><RefreshCw className={q.isFetching ? "animate-spin" : ""} /></Button>
       </div>
 
-      <section className="mt-4 flex flex-wrap items-center gap-4 rounded-xl border bg-card p-5 shadow-soft">
-        <span className="flex h-14 w-14 items-center justify-center rounded-xl bg-primary text-primary-foreground"><Smartphone className="h-7 w-7" /></span>
+      <section className="mt-4 flex flex-wrap items-center gap-4 rounded-lg border bg-card px-4 py-4 shadow-soft">
+        <span className="flex h-14 w-14 items-center justify-center rounded-lg bg-primary text-primary-foreground"><Smartphone className="h-7 w-7" /></span>
         <div className="min-w-0 flex-1">
-          <div className="flex flex-wrap items-center gap-2"><h1 className="truncate text-2xl font-bold">{d.name}</h1><StatusBadge status={status} /></div>
-          <p className="mt-1 text-xs text-muted-foreground">Device manager · {d.platform ?? "android"} · ID hidden for privacy</p>
+          <div className="flex flex-wrap items-center gap-2"><h1 className="break-words text-lg font-semibold">{d.name}</h1><StatusBadge status={status} /></div>
+          <p className="mt-1 text-xs text-muted-foreground">{d.platform ?? "android"} · Paired {new Date(d.created_at).toLocaleDateString()}</p>
         </div>
+        <div className="border-l pl-4 text-right"><p className="text-sm font-semibold">{timeAgo(d.last_seen_at)}</p><p className="mt-1 text-[10px] text-muted-foreground">Last sync</p></div>
       </section>
 
-      <div className="mt-6 grid gap-6 lg:grid-cols-[200px_1fr]">
-        <nav aria-label="Device sections" className="flex gap-2 overflow-x-auto lg:block lg:space-y-5">
-          {groups.map(g => <div key={g} className="contents lg:block">
-            <p className="hidden px-3 pb-2 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground lg:block">{g}</p>
-            {tabs.filter(t => t.group === g).map(t => <button key={t.id} onClick={() => setTab(t.id)} aria-current={tab === t.id}
-              className={`flex shrink-0 items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors lg:w-full ${tab === t.id ? "bg-secondary text-primary" : "text-muted-foreground hover:bg-muted"}`}>
-              <t.icon className="h-4 w-4" />{t.label}</button>)}
-          </div>)}
-        </nav>
-
-        <div className="min-w-0 space-y-6">
+      <div className="mt-4">
+        <div className="min-w-0 space-y-4">
           {tab === "overview" && <>
-            <div className="grid grid-cols-2 gap-4 xl:grid-cols-4">{stats.map(s => <div key={s.label} className="rounded-xl border bg-card p-4 shadow-soft">
+            <div className="grid grid-cols-2 gap-3 xl:grid-cols-4">{stats.map(s => <div key={s.label} className="rounded-lg border bg-card p-4 shadow-soft">
               <span className={`flex h-9 w-9 items-center justify-center rounded-lg ${s.tone}`}><s.icon className="h-4 w-4" /></span>
-              <p className="mt-3 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">{s.label}</p>
-              <p className="mt-1 truncate font-display text-xl font-semibold">{s.value}</p>
-              <p className="mt-0.5 truncate text-xs text-muted-foreground">{s.note}</p>
+              <p className="mt-3 text-[10px] font-semibold uppercase tracking-normal text-muted-foreground">{s.label}</p>
+              <p className="mt-1 break-words font-display text-xl font-semibold">{s.value}</p>
+              <p className="mt-0.5 text-[11px] text-muted-foreground">{s.note}</p>
             </div>)}</div>
             <Card icon={Timer} title="Screen time" sub="Last 7 days usage overview" right={<div className="text-right"><p className="font-display text-xl font-semibold">{formatMinutes(today)}</p><p className="text-[11px] text-muted-foreground">Today</p></div>}>
-              {usage.length ? <div className="h-52"><ResponsiveContainer width="100%" height="100%">
-                <BarChart data={week} margin={{ top: 8, right: 0, left: -18, bottom: 0 }}>
-                  <XAxis dataKey="label" tickLine={false} axisLine={false} tick={{ fontSize: 11 }} interval={0} />
-                  <YAxis tickLine={false} axisLine={false} tick={{ fontSize: 11 }} tickFormatter={(m: number) => formatMinutes(m)} width={52} />
-                  <Tooltip cursor={{ fill: "transparent" }} formatter={(v) => [formatMinutes(Number(v)), "Screen time"]} />
-                  <Bar dataKey="minutes" radius={[6, 6, 6, 6]} maxBarSize={44}>{week.map(w => <Cell key={w.key} className={w.today ? "fill-primary" : "fill-chart-2"} />)}</Bar>
-                </BarChart></ResponsiveContainer></div> : <Empty icon={Timer} title="No screen time yet" text="Appears after the phone's user turns on usage sharing and grants Usage Access." />}
+              <ScreenTimeChart rows={usage} />
             </Card>
-            <AppList apps={apps.slice(0, 5)} max={maxApp} sub="By foreground time, last 7 days" />
+            <div className="grid gap-4 xl:grid-cols-2">
+              <AppList apps={apps.slice(0, 5)} max={maxApp} sub="By foreground time, last 7 days" />
+              <Card icon={History} title="Recent activity" sub="Latest recorded device events">{audit.length ? <ul className="divide-y">{audit.slice(0, 5).map(item => <li key={item.id} className="flex items-start gap-3 py-3"><span className="mt-1 h-2 w-2 shrink-0 rounded-full bg-warning" /><div><p className="text-xs font-semibold">{activityLabels[item.action] ?? item.action}</p><p className="mt-1 text-[11px] text-muted-foreground">{timeAgo(item.created_at)}</p></div></li>)}</ul> : <Empty icon={History} title="No recent events" text="No activity recorded for this device." />}</Card>
+            </div>
           </>}
 
           {tab === "location" && <Card icon={Navigation} title="GPS location" sub="Only locations the phone's user chose to share">
@@ -171,7 +161,7 @@ function DevicePage() {
             <Card icon={ShieldX} title="Never collected by Haven" sub="Haven does not build secret monitoring">
               <p className="text-sm text-muted-foreground">Microphone, camera, call logs, SMS, contacts, keystrokes, clipboard, files and browsing history are never collected.</p>
             </Card>
-            <section className="rounded-xl border border-destructive/30 bg-card p-5">
+            <section className="rounded-lg border border-destructive/30 bg-card p-5">
               <h2 className="font-semibold">Remove device</h2>
               <p className="mt-1 text-sm text-muted-foreground">Revokes access and permanently deletes its location and usage history.</p>
               <AlertDialog>
@@ -190,8 +180,8 @@ function DevicePage() {
 }
 
 function Card({ icon: Icon, title, sub, right, children }: { icon: LucideIcon; title: string; sub: string; right?: React.ReactNode; children: React.ReactNode }) {
-  return <section className="rounded-xl border bg-card p-5 shadow-soft sm:p-6">
-    <div className="mb-5 flex items-start justify-between gap-3"><div className="flex items-center gap-3"><span className="flex h-10 w-10 items-center justify-center rounded-lg bg-secondary text-primary"><Icon className="h-5 w-5" /></span><div><h2 className="font-semibold">{title}</h2><p className="text-xs text-muted-foreground">{sub}</p></div></div>{right}</div>
+  return <section className="border-t bg-card px-4 py-5 sm:px-5">
+    <div className="mb-5 flex items-start justify-between gap-3"><div className="flex items-center gap-3"><span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-secondary text-primary"><Icon className="h-5 w-5" /></span><div><h2 className="text-sm font-semibold">{title}</h2><p className="mt-0.5 text-[11px] text-muted-foreground">{sub}</p></div></div>{right}</div>
     {children}
   </section>;
 }
