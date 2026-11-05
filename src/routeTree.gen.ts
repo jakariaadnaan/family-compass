@@ -15,6 +15,7 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedAndroidRouteImport } from './routes/_authenticated/android'
 import { Route as AuthenticatedAuditRouteImport } from './routes/_authenticated/audit'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as AuthenticatedDesignPreviewRouteImport } from './routes/_authenticated/design-preview'
 import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
 import { Route as AuthenticatedDevicesIndexRouteImport } from './routes/_authenticated/devices.index'
 import { Route as AuthenticatedDevicesDeviceIdRouteImport } from './routes/_authenticated/devices.$deviceId'
@@ -51,6 +52,12 @@ const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedDesignPreviewRoute =
+  AuthenticatedDesignPreviewRouteImport.update({
+    id: '/design-preview',
+    path: '/design-preview',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedSettingsRoute = AuthenticatedSettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
@@ -91,6 +98,7 @@ export interface FileRoutesByFullPath {
   '/android': typeof AuthenticatedAndroidRoute
   '/audit': typeof AuthenticatedAuditRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/design-preview': typeof AuthenticatedDesignPreviewRoute
   '/settings': typeof AuthenticatedSettingsRoute
   '/devices/$deviceId': typeof AuthenticatedDevicesDeviceIdRoute
   '/devices/': typeof AuthenticatedDevicesIndexRoute
@@ -104,6 +112,7 @@ export interface FileRoutesByTo {
   '/android': typeof AuthenticatedAndroidRoute
   '/audit': typeof AuthenticatedAuditRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/design-preview': typeof AuthenticatedDesignPreviewRoute
   '/settings': typeof AuthenticatedSettingsRoute
   '/devices/$deviceId': typeof AuthenticatedDevicesDeviceIdRoute
   '/devices': typeof AuthenticatedDevicesIndexRoute
@@ -119,6 +128,7 @@ export interface FileRoutesById {
   '/_authenticated/android': typeof AuthenticatedAndroidRoute
   '/_authenticated/audit': typeof AuthenticatedAuditRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
+  '/_authenticated/design-preview': typeof AuthenticatedDesignPreviewRoute
   '/_authenticated/settings': typeof AuthenticatedSettingsRoute
   '/_authenticated/devices/$deviceId': typeof AuthenticatedDevicesDeviceIdRoute
   '/_authenticated/devices/': typeof AuthenticatedDevicesIndexRoute
@@ -134,6 +144,7 @@ export interface FileRouteTypes {
     | '/android'
     | '/audit'
     | '/dashboard'
+    | '/design-preview'
     | '/settings'
     | '/devices/$deviceId'
     | '/devices/'
@@ -147,6 +158,7 @@ export interface FileRouteTypes {
     | '/android'
     | '/audit'
     | '/dashboard'
+    | '/design-preview'
     | '/settings'
     | '/devices/$deviceId'
     | '/devices'
@@ -161,6 +173,7 @@ export interface FileRouteTypes {
     | '/_authenticated/android'
     | '/_authenticated/audit'
     | '/_authenticated/dashboard'
+    | '/_authenticated/design-preview'
     | '/_authenticated/settings'
     | '/_authenticated/devices/$deviceId'
     | '/_authenticated/devices/'
@@ -222,6 +235,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/design-preview': {
+      id: '/_authenticated/design-preview'
+      path: '/design-preview'
+      fullPath: '/design-preview'
+      preLoaderRoute: typeof AuthenticatedDesignPreviewRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/settings': {
       id: '/_authenticated/settings'
       path: '/settings'
@@ -271,6 +291,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedAndroidRoute: typeof AuthenticatedAndroidRoute
   AuthenticatedAuditRoute: typeof AuthenticatedAuditRoute
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
+  AuthenticatedDesignPreviewRoute: typeof AuthenticatedDesignPreviewRoute
   AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
   AuthenticatedDevicesDeviceIdRoute: typeof AuthenticatedDevicesDeviceIdRoute
   AuthenticatedDevicesIndexRoute: typeof AuthenticatedDevicesIndexRoute
@@ -280,6 +301,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAndroidRoute: AuthenticatedAndroidRoute,
   AuthenticatedAuditRoute: AuthenticatedAuditRoute,
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
+  AuthenticatedDesignPreviewRoute: AuthenticatedDesignPreviewRoute,
   AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
   AuthenticatedDevicesDeviceIdRoute: AuthenticatedDevicesDeviceIdRoute,
   AuthenticatedDevicesIndexRoute: AuthenticatedDevicesIndexRoute,

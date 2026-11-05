@@ -42,6 +42,7 @@ function AppShell() {
   ] as const;
   const current = nav.find(n => path.startsWith(n.to))?.label ?? "Workspace";
   async function signOut() { await qc.cancelQueries(); qc.clear(); await supabase.auth.signOut(); navigate({ to: "/auth", replace: true }); }
+  if (path === "/design-preview") return <Outlet />;
   return <div className="min-h-screen md:flex">
     <aside className="sticky top-0 hidden h-screen w-56 shrink-0 flex-col border-r border-sidebar-border bg-sidebar px-3 py-4 md:flex">
       <Link to="/dashboard" className="flex items-center gap-3 px-2 py-3 text-sidebar-accent-foreground"><span className="flex h-9 w-9 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground"><ShieldCheck className="h-6 w-6" /></span><span className="font-display text-2xl font-semibold">Haven<span className="mt-0.5 block font-sans text-[10px] font-medium text-sidebar-foreground/65">FAMILY WORKSPACE</span></span></Link>
