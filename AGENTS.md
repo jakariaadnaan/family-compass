@@ -19,3 +19,4 @@
 - External device APIs use atomic credential-verifying SQL functions through a publishable server client; no device-ID authorization or client-chosen owner. Why: enrollment, revocation and status updates must validate the device credential inside the same transaction.
 - Android credentials are AES-GCM encrypted with Android Keystore and excluded from backups; automatic status work is opt-in on the phone. Why: minimize credential exposure and preserve explicit consent.
 - Device-manager navigation uses validated route search state in the shared app sidebar, and screen-time plots use ScreenTimeChart. Why: avoid duplicate sidebars and keep account/device chart presentation consistent.
+- Design-only previews live in an isolated authenticated route with scoped theme tokens and no device API access. Why: illustrative layouts must not change real device data or imply collection is active.

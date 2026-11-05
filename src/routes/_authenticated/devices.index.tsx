@@ -76,7 +76,7 @@ function DevicesPage() {
         </Dialog></div>
       </div>
 
-      <div className="mt-6 flex flex-wrap items-center justify-between gap-3 border-y py-4"><p className="text-sm text-muted-foreground">Haven for Android · Native test app</p><Button asChild variant="outline" size="sm"><Link to="/android"><Download /> Get Android app</Link></Button></div>
+      <div className="mt-6 flex flex-wrap items-center justify-between gap-3 border-y py-4"><p className="text-sm text-muted-foreground">Haven for Android · Native test app</p><div className="flex flex-wrap gap-2"><Button asChild variant="secondary" size="sm"><Link to="/design-preview" search={{ page: "dashboard" }}>View design preview</Link></Button><Button asChild variant="outline" size="sm"><Link to="/android"><Download /> Get Android app</Link></Button></div></div>
 
       {codes && codes.length > 0 && (
         <div className="mt-6 rounded-lg border border-dashed bg-card p-4">
