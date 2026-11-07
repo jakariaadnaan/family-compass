@@ -3,7 +3,7 @@ import { DesignPreview, previewPages, type PreviewPage } from "@/components/Desi
 import { pageMeta } from "@/lib/dashboard";
 export const Route = createFileRoute("/_authenticated/design-preview")({
  head: () => pageMeta("Device design preview", "Explore Haven's device dashboard design with illustrative data and inactive page previews."),
- validateSearch: (search: Record<string, unknown>): { page: PreviewPage } => ({ page: previewPages.find(item => item.id === search.page)?.id ?? "dashboard" }),
+ validateSearch: (search: Record<string, unknown>): { page: PreviewPage } => ({ page: previewPages.find(item => item.id === search["page"])?.id ?? "dashboard" }),
  component: PreviewRoute,
 });
 function PreviewRoute() {
