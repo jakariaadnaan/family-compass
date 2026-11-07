@@ -260,3 +260,30 @@
   .dp-content { padding: 13px 11px 25px; }.dp-topbar { height: 60px; padding: 0 11px; }.dp-top-left { gap: 9px; }.dp-top-left p { flex-wrap: wrap; }.dp-top-actions { gap: 6px; }.dp-devicecard { padding: 13px; gap: 10px; flex-wrap: wrap; }.dp-devicename { font-size: 12px; }.dp-deviceinfo { flex: 1; }.dp-battery { padding: 9px 12px; }.dp-deviceinfo p { gap: 5px; }.dp-stats { gap: 9px; }.dp-stat { min-height: 112px; padding: 11px; }.dp-stat > strong { font-size: 19px; }.dp-lowergrid { grid-template-columns: 1fr; }.dp-detailgrid { grid-template-columns: repeat(2,minmax(0,1fr)); }.dp-panelhead { padding: 12px 13px; }.dp-headleft { gap: 8px; }.dp-chart { height: 225px; padding: 13px 8px 18px; gap: 5px; }.dp-bar { width: 22px; }.dp-barwrap > small { font-size: 8px; }.dp-chart-total strong { font-size: 15px; }
 }
 @media(max-width:380px) { .dp-stats,.dp-detailgrid { grid-template-columns: 1fr; }.dp-battery { width: 100%; display: flex; align-items: center; justify-content: space-between; }.dp-top-left p span { display: none; } }
+
+.dp-record-main { min-width: 0; flex: 1; }
+.dp-record-icon { display: grid; place-items: center; width: 35px; height: 35px; flex-shrink: 0; border-radius: 8px; background: var(--dp-warning-bg); color: var(--dp-warning); border: 1px solid var(--border); }
+.dp-record-icon svg { width: 15px; height: 15px; }
+.dp-record-blue { background: var(--secondary); color: var(--primary); }
+.dp-record-tag { font-size: 8px; font-weight: 750; border-radius: 4px; padding: 4px 7px; margin-right: 6px; background: var(--dp-warning-bg); color: var(--dp-warning); display: inline-block; }
+.dp-record-in { background: var(--dp-success-bg); color: var(--dp-success); }
+.dp-duration { display: inline-flex; align-items: center; gap: 5px; border: 1px solid var(--border); border-radius: 6px; padding: 4px 8px; font-size: 10px; white-space: nowrap; color: var(--dp-nav-text); }
+.dp-duration svg { width: 12px; height: 12px; }
+.dp-message { font-size: 10px; color: var(--dp-nav-text); border-left: 2px solid var(--border); padding-left: 11px; margin-top: 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.dp-record-tabs { display: flex; gap: 6px; padding: 7px; background: var(--muted); border-bottom: 1px solid var(--border); }
+.dp-record-tabs button { flex: 1; height: 38px; font-size: 11px; color: var(--muted-foreground); border: 1px solid transparent; box-shadow: none; }
+.dp-record-tabs button.dp-selected-tab { background: var(--card); color: var(--primary); border-color: var(--border); }
+.dp-send-form { padding: 25px; display: grid; gap: 18px; }
+.dp-send-form h2 { font-size: 15px; font-weight: 700; }
+.dp-send-form label { color: var(--muted-foreground); font-size: 10px; }
+.dp-send-form input,.dp-send-form textarea { margin-top: 8px; background: var(--card); font-size: 12px; }
+.dp-send-form textarea { height: 100px; }
+.dp-send-form > button { justify-self: start; }
+.dp-send-form > p { color: var(--muted-foreground); font-size: 10px; }
+.dp-filerow { min-height: 61px; }
+.dp-filerow button { font-size: 10px; background: var(--card); color: var(--primary); box-shadow: none; }
+.dp-filerow button.dp-download-button { color: var(--dp-success); }
+.dp-folder-path { display: flex; align-items: center; gap: 8px; padding: 12px 17px; color: var(--muted-foreground); }
+.dp-folder-empty { padding: 50px 20px; text-align: center; color: var(--muted-foreground); }
+.dp-folder-empty svg { margin: 0 auto 10px; }
+@media(max-width:600px) { .dp-smsrow { flex-wrap: wrap; gap: 8px; }.dp-smsrow .dp-record-main { flex-basis: 100%; }.dp-smsrow .dp-duration { margin-left: auto; }.dp-send-form { padding: 18px; }.dp-callrow { gap: 10px; }.dp-record-tabs button { padding: 8px; } }
