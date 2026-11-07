@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, redirect } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Smartphone, Wifi, MapPin, BarChart3, Plus, RefreshCw, ArrowUpRight, ShieldCheck, Clock3, KeyRound, ScrollText, Timer, Flame, History } from "lucide-react";
 import { ScreenTimeChart } from "@/components/ScreenTimeChart";
