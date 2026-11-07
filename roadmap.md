@@ -1,4 +1,5 @@
 # Roadmap
+- [ ] Match the complete latest uploaded Haven_-_Family_Protection-2.html design: all preview pages, search/details/theme/navigation and independent scrolling; preserve phone functions and verify desktop/mobile.
 - [x] Design-only stage 1: uploaded HTML dashboard, matching navigation and clickable illustrative page previews; no phone functions or real-data changes.
 - [x] Continue from existing work, without restarting: fix preview search typing and refine Call Logs, SMS Messages, File Explorer and Downloads; authenticated navigation, SMS tabs, sample folders and desktop/mobile checks passed.
 - [ ] Design-only next small batch: GPS, Microphone, Contacts, Notifications, Installed Apps, Websites and inactive keyboard/clipboard layouts; deferred to the next user-requested batch to conserve usage.
