@@ -10,6 +10,9 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 
 export const Route = createFileRoute("/_authenticated/dashboard")({
+  beforeLoad: () => {
+    throw redirect({ to: "/design-preview", search: { page: "dashboard" } });
+  },
   head: () => pageMeta("Overview", "Your Haven device overview, sharing status and recent account activity."),
   component: Dashboard,
 });
