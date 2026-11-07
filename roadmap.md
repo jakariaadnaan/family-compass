@@ -1,7 +1,7 @@
 # Roadmap
-- [ ] Design-only stage 1: uploaded HTML dashboard, matching navigation and clickable illustrative page previews; no phone functions or real-data changes.
-- [ ] Continue from existing work, without restarting: fix preview search typing and refine Call Logs, SMS Messages, File Explorer and Downloads in one small design-only batch.
-- [ ] Design-only later batches: refine individual preview pages against the uploaded HTML after stage 1 review.
+- [x] Design-only stage 1: uploaded HTML dashboard, matching navigation and clickable illustrative page previews; no phone functions or real-data changes.
+- [x] Continue from existing work, without restarting: fix preview search typing and refine Call Logs, SMS Messages, File Explorer and Downloads; authenticated navigation, SMS tabs, sample folders and desktop/mobile checks passed.
+- [ ] Design-only next small batch: GPS, Microphone, Contacts, Notifications, Installed Apps, Websites and inactive keyboard/clipboard layouts; deferred to the next user-requested batch to conserve usage.
 - [x] Reference screenshot alignment: unified device sidebar, compact identity banner, four metrics, wide screen-time plot and paired lower panels; real-account desktop/mobile layout and GPS navigation verified. No new phone collection features added.
 - [x] Dashboard redesign: grouped light sidebar, device spotlight card, colorful stat cards, 7-day screen time chart, most-used-apps ranking (real usage_summaries data, honest empty states)
 - [x] Dashboard upgrade: professional layout, device search/filter/sort, refresh, consent overview, real account activity; authenticated pairing/read-back and mobile/desktop verification
