@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, redirect } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Smartphone, Wifi, MapPin, BarChart3, Plus, RefreshCw, ArrowUpRight, ShieldCheck, Clock3, KeyRound, ScrollText, Timer, Flame, History } from "lucide-react";
 import { ScreenTimeChart } from "@/components/ScreenTimeChart";
@@ -10,6 +10,9 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 
 export const Route = createFileRoute("/_authenticated/dashboard")({
+  beforeLoad: () => {
+    throw redirect({ to: "/design-preview", search: { page: "dashboard" } });
+  },
   head: () => pageMeta("Overview", "Your Haven device overview, sharing status and recent account activity."),
   component: Dashboard,
 });
